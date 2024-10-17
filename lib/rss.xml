@@ -1,0 +1,39 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Essays & Notes]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>Essays &amp; Notes</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Thu, 17 Oct 2024 00:41:27 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Thu, 17 Oct 2024 00:41:26 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[Description]]></title><description><![CDATA[ 
+ <br>Theodore Shea MacCabe<br><br>Ever wonder what quantum particles really look like? It's certainly hard to imagine: they sometimes are in multiple places at once - unless you measure them. Then, they quickly make up their minds, and are in a specific state.<br>How do they "decide" where they're measured? As it turns out, when the universe is not looking, a quantum particle shifts back and forth between different possible states. They quickly flit in and out of high-energy states, and they slowly oscillate between low-energy states. The equation that describes this process is the time-dependent Schrodinger equation: Let's talk about how a particle evolves over time when it isn't being measured. Imagine a particle in a 2D space whose position is not determined. This particle has a certain probability of being measured in each region of the space. If the particle's energy level is determined, meaning it's not mixed between multiple energy levels, then this probability distribution is constant over time.<br>However, if the particle is mixed between multiple energy levels, then the probability distribution will change over time. This is because each energy level is associated with a specific shape for the distribution. When multiple energy levels are present, and the particle is shifting back and forth between them, the amplitude of each energy level's probability distribution oscillates at its own pace.<br>This produces wave-like motion as the particle's probability shifts between different shapes. In general, higher energy levels are associated with shorter wavelengths, and as the different probability distributions grow and shrink, they interfere with each other, causing the overall density to shift and morph.<br>Note that this is not exactly what you'd see if you could look at a quantum particle. When measured, the particle will be in a single location. However, visualizing the particle's evolution without measurements helps us understand how quantum systems evolve and mix between states.<br><br>
+<br>Schrodinger equation
+<br>
+<br>The wavefunction solves  
+<br> defines the boundary conditions for an annulus with infinite walls. In polar coordinates,
+<br>Within this region, the Schrodinger equation becomes  with the boundary conditions  In polar coordinates,which is the <a data-tooltip-position="top" aria-label="https://en.wikipedia.org/wiki/Helmholtz_equation" rel="noopener" class="external-link" href="https://en.wikipedia.org/wiki/Helmholtz_equation" target="_blank">Helmholtz equation</a> equation in polar coordinates.
+<br>It can be solved via Separation of Variables, 
+<br>The azimuthal Schrodinger equation is a homogeneous 2nd order equation in  
+<br>The azimuthal part is periodic over  and involves no other symmetries. As such, it takes the form   is an eigen state of the  operator, so 
+<br>The kinetic energy operator,  consists of a radial part,and an azimuthal part, 
+<br> solves the radial Schrodinger equation,
+<br>Multiplied by  the radial equation becomes the Bessel equation, and the solutions are related by   So consider the Bessel equation, 
+<br>The radial part is solved by a combination of cylindrical Bessel functions. This is treated in <a data-tooltip-position="top" aria-label="https://archive.org/details/dli.ernet.476110/page/81/mode/2up" rel="noopener" class="external-link" href="https://archive.org/details/dli.ernet.476110/page/81/mode/2up" target="_blank">Loud Speakers Theory: Performance, Testing and Design</a> on page 81. Some of the process is repeated here. 
+<br>Appealing to the boundary behavior,  
+<br>Let  and let  This scale factor can be set arbitrarily because it will be accounted for in the wave function's normalization. Then, the radial equation is 
+<br>Thus, the eigen functions can be separated into radial and azimuthal components with quantum numbers   
+<br>We can define the coefficients  and  accordingly:    2. Normalization
+<br>For each  pair, the normalization condition for each eigen function is - The azimuthal integral result is	- (Note on notation: this article uses  for the circle constant. <a data-tooltip-position="top" aria-label="https://tauday.com/tau-manifesto" rel="noopener" class="external-link" href="https://tauday.com/tau-manifesto" target="_blank">Motivation</a>)
+<br>The radial integral is (available at the <a data-tooltip-position="top" aria-label="https://dlmf.nist.gov/10.22#E5" rel="noopener" class="external-link" href="https://dlmf.nist.gov/10.22#E5" target="_blank">Digital Library of Mathematical Functions (DLMF)</a>; these identities hold for linear combinations of Bessel functions): 
+<br>The coefficient is the inverse square-root of the entire integral: 
+<br>
+<br>Energy Eigen Value Calculation
+<br>
+<br>For each eigen function  the Hamiltonian has one eigen value.     
+<br> is a linear combination of Bessel functions of the first and second kind, so the Bessel function derivative recurrence relations hold for  (available at <a data-tooltip-position="top" aria-label="https://functions.wolfram.com/Bessel-TypeFunctions/BesselJ/20/ShowAll.html" rel="noopener" class="external-link" href="https://functions.wolfram.com/Bessel-TypeFunctions/BesselJ/20/ShowAll.html" target="_blank">The Wolfram Function Site</a>).    
+<br> also appears in "Section 2: Normalization," in the calculation of  (available at the <a data-tooltip-position="top" aria-label="https://dlmf.nist.gov/10.22#E5" rel="noopener" class="external-link" href="https://dlmf.nist.gov/10.22#E5" target="_blank">DLMF</a>):  
+<br> has an analytic solution when  and can be evaluated numerically otherwise: 
+<br>The rest of the integrals can be evaluated numerically. In this article, I use Julia's QuadGK.jl package for the integrals, and SpecialFunctions.jl is used for Bessel functions. In Python, scipy contains both tools (scipy.integrate and scipy.special).<br>
+- Alternatively, The integral results can be represented with the <a data-tooltip-position="top" aria-label="https://en.wikipedia.org/wiki/Generalized_hypergeometric_function" rel="noopener" class="external-link" href="https://en.wikipedia.org/wiki/Generalized_hypergeometric_function" target="_blank">Generalized Hypergeometric Function</a>. However, evaluating the function often involves calculating a power series with sufficient precision, which is a performance consideration.<br>
+- Numerically evaluating the integrals also requires significant computation time (in this case, using a quadrature algorithm like QuadGK.jl). Both are viable options with limited computing power, but this article does not compare their performances.<br>
+
+<br>
+<br>Time Evolution of Eigen States
+<br>
+<br>The time-evolution operator is  Each state has an initial coefficient  Applying  it to an initial state, 
+<br>Each state has a complex initial coefficient  Assume the initial state coefficients satisfy  Then, 
+<br>Thus, the density over time is 
+]]></description><link>Substack Posts\Uploaded\Quantum Particle in a Ring - Mathematics.html</link><guid isPermaLink="false">Substack Posts/Uploaded/Quantum Particle in a Ring - Mathematics.md</guid><pubDate>Thu, 17 Oct 2024 00:41:09 GMT</pubDate></item></channel></rss>
